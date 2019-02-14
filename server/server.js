@@ -23,6 +23,22 @@ app.post("/todos", (req, res) => {
   );
 });
 
+app.post("/users", (req, res) => {
+  var todo = new User({
+    text: req.body.text
+  });
+  todo.save().then(
+    doc => {
+      res.send(doc);
+    },
+    err => {
+      res.status(400).send(err);
+    }
+  );
+});
+
 app.listen(3001, () => {
   console.log("Started on port 3001");
 });
+
+module.exports = { app };
