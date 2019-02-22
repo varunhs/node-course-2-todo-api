@@ -1,3 +1,5 @@
+// section 7 lecture 19 needs to be start
+
 var express = require("express");
 var bodyParser = require("body-parser");
 
@@ -24,15 +26,37 @@ app.post("/todos", (req, res) => {
 });
 
 app.post("/users", (req, res) => {
-  var todo = new User({
+  var user = new User({
     text: req.body.text
   });
-  todo.save().then(
+  user.save().then(
     doc => {
       res.send(doc);
     },
     err => {
       res.status(400).send(err);
+    }
+  );
+});
+
+app.get("/users", (req, res) => {
+  User.find().then(
+    user => {
+      res.send({ user });
+    },
+    e => {
+      res.status(400).send(e);
+    }
+  );
+});
+
+app.get("/todos", (req, res) => {
+  Todo.find().then(
+    todo => {
+      res.send({ todo });
+    },
+    e => {
+      res.status(400).send(e);
     }
   );
 });
